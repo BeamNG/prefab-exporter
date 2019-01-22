@@ -57,8 +57,8 @@ def export_prefab(file, shape_name, collision_type, decal_type, data_source):
         elif decal_type == "4":
             decal_type_name = "None"
 
-        rotationMatrixString = '"' + str(matrix[0][0]) + ' ' + str(matrix[0][1]) + str(matrix[0][2]) + ' ' + str(matrix[1][0]) + ' ' + str(
-            matrix[1][1]) + str(matrix[1][2]) + ' ' + str(matrix[2][0]) + ' ' + str(matrix[2][1]) + ' ' + str(matrix[2][2]) + '"'
+        rotationMatrixString = '"' + str(matrix[0][0]) + ' ' + str(matrix[0][1]) + ' ' + str(matrix[0][2]) + ' ' + str(matrix[1][0]) + ' ' + str(
+            matrix[1][1])+ ' ' + str(matrix[1][2]) + ' ' + str(matrix[2][0]) + ' ' + str(matrix[2][1]) + ' ' + str(matrix[2][2]) + '"'
 
         items.append(
             '  new TSStatic() {\n' +
