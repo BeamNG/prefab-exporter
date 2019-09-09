@@ -8,8 +8,8 @@
 bl_info = {
     "name": "BeamNG *.prefab TSStatic Exporter",
     "author": "BeamNG / dmn",
-    "version": (0, 0, 2),
-    "blender": (2, 77, 0),
+    "version": (0, 0, 3),
+    "blender": (2, 80, 0),
     "location": "File > Export",
     "description": "Export prefab files",
     "warning": "",
@@ -38,24 +38,24 @@ class ExportPrefab(bpy.types.Operator, ExportHelper):
     bl_label = 'Export prefab'
 
     filename_ext = ".prefab"
-    filter_glob = StringProperty(
+    filter_glob: StringProperty(
         default="*.prefab",
         options={'HIDDEN'},
     )
 
-    shape_name = StringProperty(
+    shape_name: StringProperty(
         name="Shape Path",
         description="This will be the exported mesh in the *.prefab file",
         default=""
     )
 
-    selection_only = BoolProperty(
+    selection_only: BoolProperty(
         name="Selection Only",
         description="Export only selected elements",
         default=True
     )
 
-    collision_type = EnumProperty(
+    collision_type: EnumProperty(
         name="Collision Type",
         description="Which collision type to use",
         items={
@@ -68,7 +68,7 @@ class ExportPrefab(bpy.types.Operator, ExportHelper):
         default="0"
     )
 
-    decal_type = EnumProperty(
+    decal_type: EnumProperty(
         name="Decal Type",
         description="Which decal type to use",
         items={
@@ -103,6 +103,7 @@ class ExportPrefab(bpy.types.Operator, ExportHelper):
 
         return export_prefab.save(self, context, **keywords)
 
+addon_classes = [ExportPrefab]
 
 # Add to a menu
 def menu_func_export(self, context):
@@ -111,13 +112,15 @@ def menu_func_export(self, context):
 
 
 def register():
-    bpy.utils.register_module(__name__)
+    for c in addon_classes:
+        bpy.utils.register_class(c)
 
-    bpy.types.INFO_MT_file_export.append(menu_func_export)
+    bpy.types.TOPBAR_MT_file_export.append(menu_func_export)
 
 
 def unregister():
-    bpy.utils.unregister_module(__name__)
+    for c in addon_classes:
+        bpy.utils.unregister_class(c)
 
     bpy.types.INFO_MT_file_export.remove(menu_func_export)
 
