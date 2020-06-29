@@ -16,7 +16,7 @@ import mathutils
 ######################################################
 
 
-def export_prefab(file, shape_name, collision_type, decal_type, data_source):
+def export_prefab(file, shape_name, shape_ext, collision_type, decal_type, data_source):
     items = []
 
     items.append('//--- OBJECT WRITE BEGIN ---')
@@ -56,13 +56,21 @@ def export_prefab(file, shape_name, collision_type, decal_type, data_source):
             decal_type_name = "Bounds"
         elif decal_type == "4":
             decal_type_name = "None"
+            
+        shape_ext_name = "Not Set"
+        if shape_ext == "0":
+            shape_ext_name = ".DAE"
+        elif shape_ext == "1":
+            shape_ext_name = ".dts"
+        elif shape_ext == "2":
+            shape_ext_name = ""
 
         rotationMatrixString = '"' + str(matrix[0][0]) + ' ' + str(matrix[0][1]) + ' ' + str(matrix[0][2]) + ' ' + str(matrix[1][0]) + ' ' + str(
             matrix[1][1])+ ' ' + str(matrix[1][2]) + ' ' + str(matrix[2][0]) + ' ' + str(matrix[2][1]) + ' ' + str(matrix[2][2]) + '"'
 
         items.append(
             '  new TSStatic() {\n' +
-            '    shapeName = "' + shape_name + '";\n' +
+            '    shapeName = "' + shape_name + ob.name + shape_ext_name + '";\n' +
             '    position = "' + str(ob.location[0]) + ' ' + str(ob.location[1]) + ' ' + str(ob.location[2]) + '";\n' +
             '    rotationMatrix = ' + rotationMatrixString + ';\n' +
             '    scale = "' + str(ob.scale[0]) + ' ' + str(ob.scale[1]) + ' ' + str(ob.scale[2]) + '";\n' +
@@ -85,6 +93,7 @@ def export_prefab(file, shape_name, collision_type, decal_type, data_source):
 ######################################################
 def save_prefab(filepath,
                 shape_name,
+                shape_ext,
                 collision_type,
                 decal_type,
                 selection_only,
@@ -101,7 +110,7 @@ def save_prefab(filepath,
 
     # write prefab
     file = open(filepath, 'w')
-    export_prefab(file, shape_name, collision_type, decal_type, data_source)
+    export_prefab(file, shape_name, shape_ext, collision_type, decal_type, data_source)
 
     # prefab export complete
     print(" done in %.4f sec." % (time.clock() - time1))
@@ -111,6 +120,7 @@ def save(operator,
          context,
          filepath="",
          shape_name="none",
+         shape_ext="",
          collision_type="0",
          decal_type="1",
          selection_only=False
@@ -118,11 +128,12 @@ def save(operator,
 
     # check item length
     if len(shape_name) == 0:
-        shape_name = "No shape path set"
+        shape_name = "No shape path set/"
 
     # save prefab
     save_prefab(filepath,
                 shape_name,
+                shape_ext,
                 collision_type,
                 decal_type,
                 selection_only,
