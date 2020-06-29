@@ -80,11 +80,24 @@ class ExportPrefab(bpy.types.Operator, ExportHelper):
         },
         default="0"
     )
+        
+    shape_ext: EnumProperty(
+        name="Shape extension",
+        description="Which collision type to use",
+        items={
+            ("0", ".DAE", ""),
+            ("1", ".dts", ""),
+            ("2", "none", ""),
+        },
+        default="0"
+    )
 
     def draw(self, context):
         layout = self.layout
         sub = layout.row()
         sub.prop(self, "shape_name")
+        sub = layout.row()
+        sub.prop(self, "shape_ext")
         sub = layout.row()
         sub.prop(self, "collision_type")
         sub = layout.row()
