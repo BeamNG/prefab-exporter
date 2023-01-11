@@ -8,7 +8,7 @@
 bl_info = {
     "name": "BeamNG *.prefab TSStatic Exporter",
     "author": "BeamNG / dmn",
-    "version": (0, 0, 3),
+    "version": (0, 0, 4),
     "blender": (2, 80, 0),
     "location": "File > Export",
     "description": "Export prefab files",

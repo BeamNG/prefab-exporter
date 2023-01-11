@@ -6,7 +6,7 @@
 # ##### END LICENSE BLOCK #####
 
 import os
-import time
+import datetime
 import math
 import bpy
 import mathutils
@@ -92,7 +92,7 @@ def save_prefab(filepath,
 
     print("exporting prefab: %r..." % (filepath))
 
-    time1 = time.clock()
+    time1 = datetime.datetime.now()
 
     # get data source
     data_source = bpy.data.objects
@@ -104,7 +104,7 @@ def save_prefab(filepath,
     export_prefab(file, shape_name, collision_type, decal_type, data_source)
 
     # prefab export complete
-    print(" done in %.4f sec." % (time.clock() - time1))
+    print(" done in %.4f sec." % (datetime.datetime.now() - time1).total_seconds())
 
 
 def save(operator,
